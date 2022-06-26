@@ -11,7 +11,7 @@ public class Task2 {
         double d;
         int i;
         int ch;
-        String s ="5";
+        String s;
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите значение: ");
 
