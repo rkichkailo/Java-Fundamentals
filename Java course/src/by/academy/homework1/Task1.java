@@ -3,15 +3,15 @@ package by.academy.homework1;
 import java.util.Scanner;
 
 public class Task1 {
+    public static void main(String[] args) {
 
-    int userAge = 0;
-    boolean ageCorrect = false;
-    double sumBuy = 0;
-    boolean userBuy = false;
-    double discount = 0;
-    Scanner scan = new Scanner(System.in);
+        int userAge = 0;
+        boolean ageCorrect = false;
+        double sumBuy = 0;
+        boolean userBuy = false;
+        double discount = 0;
+        Scanner scan = new Scanner(System.in);
 
-    public void runTask(){
         System.out.println("Введите ваш возраст: ");
         if (scan.hasNextInt()) {
             ageCorrect = true;
@@ -54,7 +54,7 @@ public class Task1 {
             }
         } else {
             System.out.println("Вы ввели некорректное значение! Перезапустите программу и попробуйте еще раз");
-            scan.close();
+                scan.close();
         }
     }
 }
