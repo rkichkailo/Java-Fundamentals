@@ -46,6 +46,7 @@ public class Task4 {
                 System.out.println("\n"+ "---------------------------------------");
                 users--;
             }
+            scanner.close();
         }
     }
 
