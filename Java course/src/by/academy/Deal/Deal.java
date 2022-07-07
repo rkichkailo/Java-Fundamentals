@@ -10,7 +10,7 @@ public class Deal {
     private User buyer;
     private Product [] products;
     private LocalDateTime buyTime;
-    private double fullPrice = 0.0;
+    private double fullPrice;
 
     public Deal() {
         super();
@@ -23,12 +23,12 @@ public class Deal {
         this.products = products;
     }
 
-//    public double fullPrice(){
-//        for (int i = 0; i < products.length; i++) {
-//            fullPrice += Product.calcPrice();
-//        }
-//        return fullPrice;
-//    }
+    public double fullPrice(){
+        for (int i = 0; i < products.length; i++) {
+            fullPrice += products[i].calcPrice();
+        }
+        return fullPrice;
+    }
 
 //    public double deal(){}
 

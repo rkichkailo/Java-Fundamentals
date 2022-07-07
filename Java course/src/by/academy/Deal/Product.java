@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class Product {
 
-    private double price;
-    private String productName;
-    private  int quantity;
-    boolean isTax;
+    protected double price;
+    protected String productName;
+    protected int quantity;
+    protected boolean isTax;
 
     public Product(double price) {
         super();
@@ -21,12 +21,15 @@ public class Product {
     }
 // расчитываем стоимость за кол-во продуктов
     public double calcPrice(){
+
         return price * quantity;
     }
+
 //  расчитываем дивконт
     public double discount(){
         return 1;
     }
+
 //  getter, setter, hash, toString
     public double getPrice() {
         return price;
