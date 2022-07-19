@@ -1,14 +1,9 @@
 package by.academy.Deal;
 
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.Arrays;
-
 public class Shop {
 
     private static int count = 15;
-
-    private static Product[] products = new Product[15];
+    private final static Product[] products = new Product[15];
 
     static {
         products[0] = new Bread(7, "BaguetteBread", "white", "Baguette", false, 5, 0);
@@ -68,7 +63,7 @@ public class Shop {
     public static void showProducts() {
         for (int i = 0; i < products.length; i++) {
             if (products[i] == null) {
-                continue;
+                break;
             } else {
                 System.out.println(i + ". " + products[i].toString() + ", quantity = " + products[i].shopQuantity);
             }

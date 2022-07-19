@@ -3,12 +3,10 @@ package by.academy.Deal;
 import java.util.Objects;
 
 public abstract class Product {
-
     protected double price;
     protected String productName;
     protected int shopQuantity;
     protected int bagQuantity;
-
 
     public Product(double price) {
         super();
@@ -20,8 +18,6 @@ public abstract class Product {
         this.shopQuantity = shopQuantity;
         this.bagQuantity = bagQuantity;
     }
-
-
 
 // расчитываем стоимость за кол-во продуктов
     public double calcPrice(){

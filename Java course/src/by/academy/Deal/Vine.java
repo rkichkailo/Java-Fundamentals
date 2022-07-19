@@ -3,7 +3,6 @@ package by.academy.Deal;
 import java.util.Objects;
 
 public class Vine extends Product{
-
     private String country;
     private double volume;
     private String type;
@@ -43,11 +42,11 @@ public class Vine extends Product{
         this.volume = volume;
     }
 
-    public String getColor() {
+    public String getType() {
         return type;
     }
 
-    public void setColor(String color) {
+    public void setType(String type) {
         this.type = type;
     }
 

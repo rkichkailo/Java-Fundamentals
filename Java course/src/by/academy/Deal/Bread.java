@@ -3,7 +3,6 @@ package by.academy.Deal;
 import java.util.Objects;
 
 public class Bread extends Product{
-
     private String color;
     private String sort;
     boolean glutenFree;

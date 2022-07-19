@@ -4,8 +4,7 @@ import java.util.Objects;
 
 public class User {
 
-    private static String sellerName = "Ruslana";
-
+    private String sellerName;
     private String name;
     private double money;
 

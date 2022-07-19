@@ -3,7 +3,6 @@ package by.academy.Deal;
 import java.util.Objects;
 
 public class Cheese extends Product{
-
     private double weight;
     private String country;
     private String sort;

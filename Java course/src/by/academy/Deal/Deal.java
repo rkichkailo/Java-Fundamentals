@@ -5,13 +5,11 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Deal {
-
     private User seller;
     private User buyer;
     private Product [] products;
     private  int shopBag = 0;
     private LocalDateTime buyTime;
-    private double fullPrice;
     private int index;
 
     public Deal() {
@@ -81,10 +79,10 @@ public class Deal {
     }
 
     public double fullPrice(){
-        fullPrice = 0;
-        for (int i = 0; i < products.length; i++) {
-            if (products[i] != null){
-                fullPrice += products[i].calcPrice();
+        double fullPrice = 0;
+        for (Product n: products) {
+            if (n != null){
+                fullPrice += n.calcPrice();
             }
         }
         return fullPrice;
@@ -94,7 +92,7 @@ public class Deal {
 
 //    public String bill(){
 
-//    }
+
 
 //  getter, setter, hash, toString
 
