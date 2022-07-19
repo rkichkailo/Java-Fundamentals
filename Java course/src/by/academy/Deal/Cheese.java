@@ -8,8 +8,8 @@ public class Cheese extends Product{
     private String country;
     private String sort;
 
-    public Cheese(double price, String productName, int quantity, boolean isTax, double weight, String country, String sort) {
-        super(price, productName, quantity, isTax);
+    public Cheese(double price, String productName, double weight, String country, String sort, int shopQuantity, int bagQuantity) {
+        super(price, productName,shopQuantity, bagQuantity);
         this.weight = weight;
         this.country = country;
         this.sort = sort;
@@ -19,7 +19,7 @@ public class Cheese extends Product{
     @Override
     public double discount() {
         if ("parmezan".equals(sort)  && "Italy".equals(country)){
-            return price * 0.05;
+            return 5;
         } else if ("dor blue".equals(sort) || "Feta".equals(sort)){
             return price * 0.06;
         } else {
@@ -68,9 +68,11 @@ public class Cheese extends Product{
     @Override
     public String toString() {
         return "Cheese{" +
-                "weight=" + weight +
-                ", country='" + country + '\'' +
+                "productName='" + productName + '\'' +
                 ", sort='" + sort + '\'' +
+                ", country='" + country + '\'' +
+                ", weight=" + weight +
+                ", price=" + price +
                 '}';
     }
 }

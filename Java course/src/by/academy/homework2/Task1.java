@@ -32,6 +32,9 @@ public class Task1 {
         return result;
     }
 
+//    boolean result = true;
+//    if (firstString.length() != secondString.length()){
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);

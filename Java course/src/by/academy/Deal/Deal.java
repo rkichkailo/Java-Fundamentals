@@ -9,23 +9,83 @@ public class Deal {
     private User seller;
     private User buyer;
     private Product [] products;
+    private  int shopBag = 0;
     private LocalDateTime buyTime;
     private double fullPrice;
+    private int index;
 
     public Deal() {
         super();
+        this.products = new Product[10];
+        this.index = 0;
     }
 
-
-    public Deal(User seller, User buyer, Product[] products) {
-        this.seller = seller;
+    public Deal(User buyer) {
+        super();
         this.buyer = buyer;
-        this.products = products;
+    }
+    public void addProduct (Product newProduct, int quantity) {
+
+        if (quantity != 0) {
+            if (shopBag == products.length)
+                grow();
+            else {
+                if (index == 0) {
+                    products[index] = newProduct;
+                    products[index].bagQuantity = quantity;
+                    shopBag += quantity;
+                }
+                if (index > 0) {
+                    for (int i = 0; i < index; i++) {
+                        if (products[i].equals(newProduct)) {
+                            products[i].bagQuantity += quantity;
+                            break;
+                        } else {
+                            products[index] = newProduct;
+                            products[index].bagQuantity = quantity;
+                            shopBag += quantity;
+                        }
+                    }
+                }
+                index++;
+                System.out.println("Продукт добавлен в корзину " +
+                        "\n------------------------------------------------------");
+            }
+        }else{
+            System.out.println("неверное количество");
+        }
+    }
+
+    private void grow(){
+        int newLength = (int) (products.length == 0 ? 1 : products.length * 1.5);
+        Product [] newProducts = new Product[newLength];
+        System.arraycopy(products, 0, newProducts, 0, products.length);
+        products = newProducts;
+    }
+    public void removeProduct(int productID, int quantity){
+        if (products[productID].bagQuantity > quantity){
+            products[productID].bagQuantity -= quantity;
+            shopBag-=quantity;
+        } else {
+            //products[productID].bagQuantity--;
+            products[productID].bagQuantity -= quantity;
+            System.arraycopy(products, productID + 1, products, productID, (products.length - productID) - 1);
+            shopBag-=quantity;
+            index--;
+        }
+        System.out.println("Продукт удален из корзины " +
+                "\n------------------------------------------------------");
+    }
+    public Product getProduct(int productID){
+        return products[productID];
     }
 
     public double fullPrice(){
+        fullPrice = 0;
         for (int i = 0; i < products.length; i++) {
-            fullPrice += products[i].calcPrice();
+            if (products[i] != null){
+                fullPrice += products[i].calcPrice();
+            }
         }
         return fullPrice;
     }
@@ -67,6 +127,14 @@ public class Deal {
 
     public void setBuyTime(LocalDateTime buyTime) {
         this.buyTime = buyTime;
+    }
+
+    public int getShopBag() {
+        return shopBag;
+    }
+
+    public void setShopBag(int shopBag) {
+        this.shopBag = shopBag;
     }
 
     @Override

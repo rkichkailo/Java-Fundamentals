@@ -2,35 +2,44 @@ package by.academy.Deal;
 
 import java.util.Objects;
 
-public class Product {
+public abstract class Product {
 
     protected double price;
     protected String productName;
-    protected int quantity;
-    protected boolean isTax;
+    protected int shopQuantity;
+    protected int bagQuantity;
+
 
     public Product(double price) {
         super();
     }
 
-    public Product(double price, String productName, int quantity, boolean isTax) {
+    public Product(double price, String productName, int shopQuantity, int bagQuantity) {
         this.price = price;
         this.productName = productName;
-        this.quantity = quantity;
-        this.isTax = isTax;
+        this.shopQuantity = shopQuantity;
+        this.bagQuantity = bagQuantity;
     }
+
+
+
 // расчитываем стоимость за кол-во продуктов
     public double calcPrice(){
 
-        return price * quantity;
+        return price * bagQuantity;
     }
 
-//  расчитываем дивконт
-    public double discount(){
-        return 1;
-    }
+//  расчитываем дисконт
+    protected abstract double discount();
 
 //  getter, setter, hash, toString
+
+    public int getBagQuantity() {
+        return bagQuantity;
+    }
+    public void setBagQuantity(int bagQuantity) {
+        this.bagQuantity = bagQuantity;
+    }
     public double getPrice() {
         return price;
     }
@@ -47,20 +56,12 @@ public class Product {
         this.productName = productName;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getShopQuantity() {
+        return shopQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public boolean isTax() {
-        return isTax;
-    }
-
-    public void setTax(boolean tax) {
-        isTax = tax;
+    public void setShopQuantity(int quantity) {
+        this.shopQuantity = quantity;
     }
 
     @Override
@@ -68,8 +69,6 @@ public class Product {
         return "Product{" +
                 "price=" + price +
                 ", productName='" + productName + '\'' +
-                ", quantity=" + quantity +
-                ", isTax=" + isTax +
                 '}';
     }
 
@@ -78,11 +77,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Double.compare(product.price, price) == 0 && quantity == product.quantity && isTax == product.isTax && productName.equals(product.productName);
+        return Double.compare(product.price, price) == 0 && productName.equals(product.productName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(price, productName, quantity, isTax);
+        return Objects.hash(price, productName);
     }
 }

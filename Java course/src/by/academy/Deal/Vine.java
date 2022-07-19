@@ -5,25 +5,25 @@ import java.util.Objects;
 public class Vine extends Product{
 
     private String country;
-    private int volume;
-    private String color;
+    private double volume;
+    private String type;
 
 
-    public Vine(double price, String productName, int quantity, boolean isTax, String country, int volume, String color) {
-        super(price, productName, quantity, isTax);
+    public Vine(double price, String productName, String country, double volume, String type, int shopQuantity, int bagQuantity ) {
+        super(price, productName, shopQuantity, bagQuantity);
         this.country = country;
         this.volume = volume;
-        this.color = color;
+        this.type = type;
     }
 
     @Override
     public double discount() {
         switch (country){
-            case "Italy": return price * 0.01;
-            case "Germany": return  price * 0.02;
-            case "Spain": return  price * 0.03;
-            case "France": return  price * 0.04;
-            default: return  price * 0.05;
+            case "Italy": return 5;
+            case "Germany": return  4;
+            case "Spain": return  3;
+            case "France": return  2;
+            default: return  10;
         }
     }
 
@@ -35,20 +35,20 @@ public class Vine extends Product{
         this.country = country;
     }
 
-    public int getVolume() {
+    public double getVolume() {
         return volume;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(double volume) {
         this.volume = volume;
     }
 
     public String getColor() {
-        return color;
+        return type;
     }
 
     public void setColor(String color) {
-        this.color = color;
+        this.type = type;
     }
 
     @Override
@@ -62,14 +62,17 @@ public class Vine extends Product{
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), country, volume);
+        return Objects.hash(super.hashCode(), country, volume, type);
     }
 
     @Override
     public String toString() {
         return "Vine{" +
+                "productName='" + productName + '\'' +
+                ", type='" + type + '\'' +
                 ", country='" + country + '\'' +
                 ", volume=" + volume +
+                ", price=" + price +
                 '}';
     }
 }
