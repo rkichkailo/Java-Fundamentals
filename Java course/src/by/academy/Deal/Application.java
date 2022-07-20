@@ -1,6 +1,5 @@
 package by.academy.Deal;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Application {
@@ -8,7 +7,32 @@ public class Application {
 
         Scanner scanner = new Scanner(System.in);
         User buyer = new User();
-        Deal deal = new Deal();
+        User seller = new User("Ruslana", 100);
+
+        System.out.println("Введите номер вашего телефона:");
+        String number = scanner.nextLine();
+
+        BelarusPhoneValidator phoneBelarus = new BelarusPhoneValidator();
+        AmericanPhoneValidator phoneAmerica = new AmericanPhoneValidator();
+        EmailValidator userEmail = new EmailValidator();
+
+        if (phoneBelarus.validate(number) || phoneAmerica.validate(number)){
+            buyer.setPhone(number);
+            System.out.println(buyer.getPhone());
+        } else {
+            System.out.println("не верный паттерн");
+        }
+
+        System.out.println("Введите адрес вашей электонной почты:");
+        String email = scanner.nextLine();
+
+
+        if (userEmail.validate(email)){
+            buyer.setEmail(number);
+            System.out.println(buyer.getEmail());
+        } else {
+            System.out.println("не верный паттерн");
+        }
 
         System.out.println("Ваше имя:");
         buyer.setName(scanner.nextLine());
@@ -16,37 +40,29 @@ public class Application {
         System.out.println("Ваш бюджет:");
         buyer.setMoney(scanner.nextDouble());
 
-        System.out.println("Здравствуйте " + buyer.getName() +
-                "\nВас преветствует интернет магазин DEAL. " +
-                "\nДля перехода в меню продуктов нажмите 1" +
-                "\nДля выхода из программы нажмите 2");
+        Shop.getMenu(1);
+
         int userAction = scanner.nextInt();
 
-        if (userAction != 2) {
+        Deal deal = new Deal(buyer, seller);
 
+        if (userAction != 2) {
             boolean menuAction = true;
 
             while (menuAction) {
-
-                System.out.println("Выберите действие: " +
-                        "\n0 - Перечень продуктов реализуемых в магазине" +
-                        "\n1 - Добавить продукт в козину" +
-                        "\n2 - Удалить продукт из корзины" +
-                        "\n3 - Просмотр корзины" +
-                        "\n4 - Подсчет корзины" +
-                        "\n5 - Выйти из приложения");
+                Shop.getMenu(2);
                 userAction = scanner.nextInt();
 
                 switch (userAction) {
                     case 0:
                         Shop.showProducts();
-                        System.out.println("------------------------------------------------------");
+                        Shop.getMenu(0);
                         break;
                     case 1:
-                        System.out.println("Выберите номер продукта");
+                        Shop.getMenu(3);
                         int productID = scanner.nextInt();
 
-                        System.out.println("Выберите количество");
+                        Shop.getMenu(4);
                         int productQuantity = scanner.nextInt();
 
                         if (productQuantity <= deal.getProducts().length) {
@@ -56,20 +72,24 @@ public class Application {
                         }
                         break;
                     case 2:
-                        System.out.println("Введите номер удаляемого продукта:");
-                        productID = scanner.nextInt();
+                        if (deal.getShopBag() == 0){
+                            Shop.getMenu(5);
+                            Shop.getMenu(0);
+                        } else {
+                            Shop.getMenu(6);
+                            productID = scanner.nextInt();
 
-                        System.out.println("Выберите количество");
-                        productQuantity = scanner.nextInt();
+                            Shop.getMenu(4);
+                            productQuantity = scanner.nextInt();
 
-                        Shop.increaseQuantity(deal.getProduct(productID), productQuantity);
-                        //System.out.println(deal.getProduct(productID));
-                        deal.removeProduct(productID, productQuantity);
+                            Shop.increaseQuantity(deal.getProduct(productID), productQuantity);
+                            deal.removeProduct(productID, productQuantity);
+                        }
                         break;
                     case 3:
                         if (deal.getShopBag() == 0){
-                            System.out.println("Корзина пустая. Пожалуйста добавьте продукт" +
-                                    "\n------------------------------------------------------");
+                            Shop.getMenu(5);
+                            Shop.getMenu(0);
                         } else {
                             int index = 0;
                             for(Product n: deal.getProducts()){
@@ -79,21 +99,42 @@ public class Application {
                                 System.out.println(index + ". " + n + ", quantity = " + n.bagQuantity);
                                 index++;
                             }
-                            System.out.println("------------------------------------------------------");
+                            Shop.getMenu(0);
                         }
                         break;
                     case 4:
-                        System.out.println("подсчет");
-                        System.out.println(deal.fullPrice());
+                        if (deal.getShopBag() == 0) {
+                            Shop.getMenu(5);
+                            Shop.getMenu(0);
+                        } else {
+                            Shop.getMenu(7);
+                            System.out.println(deal.fullPrice());
+                            Shop.getMenu(0);
+                            Shop.getMenu(8);
+                            userAction = scanner.nextInt();
+
+                            if (userAction == 0){
+                                if (deal.deal()){
+                                    deal.bill();
+                                    Shop.getMenu(0);
+                                    Shop.getMenu(9);
+                                    menuAction = false;
+                                    break;
+                                    } else {
+                                        System.out.println("У вас недостаточно средств");
+                                    }
+                                }
+                            }
                         break;
                     case 5:
-                        System.out.println("Спасибо что выбрали наш магазин. До новых покупок!");
+                        Shop.getMenu(9);
                         menuAction = false;
                         break;
                 }
             }
         } else{
-            System.out.println("Спасибо что выбрали наш магазин. До новых покупок!");
+            Shop.getMenu(9);
         }
+        scanner.close();
     }
 }

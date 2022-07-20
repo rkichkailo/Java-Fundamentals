@@ -18,11 +18,11 @@ public class Vine extends Product{
     @Override
     public double discount() {
         switch (country){
-            case "Italy": return 5;
-            case "Germany": return  4;
-            case "Spain": return  3;
-            case "France": return  2;
-            default: return  10;
+            case "Italy": return (price * 5)/100;
+            case "Germany": return  (price * 4)/100;
+            case "Spain": return  (price * 3)/100;
+            case "France": return  (price * 2)/100;
+            default: return  1;
         }
     }
 

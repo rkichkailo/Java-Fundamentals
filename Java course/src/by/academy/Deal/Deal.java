@@ -9,18 +9,20 @@ public class Deal {
     private User buyer;
     private Product [] products;
     private  int shopBag = 0;
+    private double endPrice;
     private LocalDateTime buyTime;
     private int index;
 
     public Deal() {
         super();
-        this.products = new Product[10];
-        this.index = 0;
     }
 
-    public Deal(User buyer) {
+    public Deal(User buyer, User seller) {
         super();
         this.buyer = buyer;
+        this.seller = seller;
+        this.products = new Product[10];
+        this.index = 0;
     }
     public void addProduct (Product newProduct, int quantity) {
 
@@ -49,7 +51,7 @@ public class Deal {
                 System.out.println("Продукт добавлен в корзину " +
                         "\n------------------------------------------------------");
             }
-        }else{
+        } else {
             System.out.println("неверное количество");
         }
     }
@@ -61,11 +63,11 @@ public class Deal {
         products = newProducts;
     }
     public void removeProduct(int productID, int quantity){
+
         if (products[productID].bagQuantity > quantity){
             products[productID].bagQuantity -= quantity;
             shopBag-=quantity;
         } else {
-            //products[productID].bagQuantity--;
             products[productID].bagQuantity -= quantity;
             System.arraycopy(products, productID + 1, products, productID, (products.length - productID) - 1);
             shopBag-=quantity;
@@ -79,22 +81,38 @@ public class Deal {
     }
 
     public double fullPrice(){
-        double fullPrice = 0;
+        double result = 0;
         for (Product n: products) {
             if (n != null){
-                fullPrice += n.calcPrice();
+                result += n.calcPrice();
             }
         }
-        return fullPrice;
+        return result;
     }
 
-//    public double deal(){}
+    public boolean deal() {
 
-//    public String bill(){
+        if (buyer.getMoney() >= fullPrice()) {
+            this.endPrice = fullPrice();
+            seller.setMoney(seller.getMoney() + endPrice);
+            buyer.setMoney(buyer.getMoney() - endPrice);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-
-
-//  getter, setter, hash, toString
+    public void bill() {
+        System.out.println("==========Чек продажи==========");
+        for (Product n: products) {
+            if (n != null){
+                System.out.println(n.productName + " *  " + n.bagQuantity + " = " + n.calcPrice() + " скидка - " + n.discount());
+            }
+        }
+        System.out.println("Итого к оплате " + endPrice);
+        System.out.println("Продавец - " + seller.getName());
+        System.out.println("Покупатель - " + buyer.getName());
+    }
 
     public User getSeller() {
         return seller;

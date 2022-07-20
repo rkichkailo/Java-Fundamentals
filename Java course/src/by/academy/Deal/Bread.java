@@ -40,7 +40,11 @@ public class Bread extends Product{
 
     @Override
     protected double discount() {
-        return 6;
+        if (isGlutenFree()){
+            return (price * 5)/100;
+        } else {
+            return 1;
+        }
     }
     @Override
     public String toString() {

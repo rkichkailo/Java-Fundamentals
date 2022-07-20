@@ -4,6 +4,7 @@ public class Shop {
 
     private static int count = 15;
     private final static Product[] products = new Product[15];
+    public final static String [] menu = new String[10];
 
     static {
         products[0] = new Bread(7, "BaguetteBread", "white", "Baguette", false, 5, 0);
@@ -22,6 +23,30 @@ public class Shop {
         products[13] = new Cheese(10, "Parmezan", 0.2, "Italy", "parmezan", 5,0);
         products[14] = new Cheese(11, "Dor Blue", 0.3, "France", "blue",5,0 );
     }
+    static {
+        menu[0] = "------------------------------------------------------";
+        menu[1] = "Вас преветствует интернет магазин DEAL." +
+                "\n\nДля перехода в меню продуктов нажмите 1 \nДля выхода из программы нажмите 2" +
+                "\n------------------------------------------------------";
+        menu[2] = "Выберите действие: " +
+                "\n0 - Перечень продуктов реализуемых в магазине" +
+                "\n1 - Добавить продукт в козину" +
+                "\n2 - Удалить продукт из корзины" +
+                "\n3 - Просмотр корзины" +
+                "\n4 - Подсчет корзины" +
+                "\n5 - Выйти из приложения";
+        menu[3] = "Выберите номер продукта";
+        menu[4] = "Выберите количество";
+        menu[5] = "Корзина пустая. Пожалуйста добавьте продукт";
+        menu[6] = "Введите номер удаляемого продукта:";
+        menu[7] = "Итоговая сумма: ";
+        menu[8] = "Желаете оформить покупку? \n0 - Да, 1 - Нет";
+        menu[9] = "Спасибо что выбрали наш магазин. До новых покупок!";
+    }
+
+    public static void getMenu(int index){
+        System.out.println(menu[index]);
+    }
 
     public static void reduceQuantity(int productID, int quantity) {
         if (products[productID].shopQuantity != 0){
@@ -33,7 +58,6 @@ public class Shop {
             }
         }
         if (products[productID].shopQuantity == 0){
-            //products[productID] = null;
             System.arraycopy(products, productID+1, products, productID, (products.length-productID) - 1);
             products[products.length-1] = null;
             count--;

@@ -18,11 +18,11 @@ public class Cheese extends Product{
     @Override
     public double discount() {
         if ("parmezan".equals(sort)  && "Italy".equals(country)){
-            return 5;
-        } else if ("dor blue".equals(sort) || "Feta".equals(sort)){
-            return price * 0.06;
+            return (price * 5)/100;
+        } else if ("blue".equals(sort) || "feta".equals(sort)){
+            return (price * 6)/100;
         } else {
-            return price * 0.07;
+            return 1;
         }
     }
 

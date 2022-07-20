@@ -22,13 +22,10 @@ public abstract class Product {
 // расчитываем стоимость за кол-во продуктов
     public double calcPrice(){
 
-        return price * bagQuantity;
+        return (price - discount()) * bagQuantity;
     }
 
-//  расчитываем дисконт
     protected abstract double discount();
-
-//  getter, setter, hash, toString
 
     public int getBagQuantity() {
         return bagQuantity;

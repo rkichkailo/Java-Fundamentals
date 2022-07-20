@@ -3,17 +3,17 @@ package by.academy.Deal;
 import java.util.Objects;
 
 public class User {
-
-    private String sellerName;
     private String name;
-    private double money;
+    protected double money;
+    private String phone;
+    private String email;
 
     public User(){
         super();
     }
 
 
-    public User(String name, double money, int userBag) {
+    public User(String name, double money) {
         this.name = name;
         this.money = money;
     }
@@ -32,6 +32,22 @@ public class User {
 
     public void setMoney(double money) {
         this.money = money;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
