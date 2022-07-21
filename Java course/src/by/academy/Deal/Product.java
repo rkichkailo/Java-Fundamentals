@@ -11,7 +11,6 @@ public abstract class Product {
     public Product(double price) {
         super();
     }
-
     public Product(double price, String productName, int shopQuantity, int bagQuantity) {
         this.price = price;
         this.productName = productName;

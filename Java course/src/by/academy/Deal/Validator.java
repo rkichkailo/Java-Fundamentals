@@ -7,4 +7,5 @@ public interface Validator {
         return getPattern().matcher(string).matches();
     }
     Pattern getPattern();
+
 }

@@ -1,6 +1,9 @@
 package by.academy.Deal;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -10,7 +13,10 @@ public class Deal {
     private Product [] products;
     private  int shopBag = 0;
     private double endPrice;
-    private LocalDateTime buyTime;
+    private final LocalDate date = LocalDate.now();
+    private final LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
+    private LocalDateTime buyTime = LocalDateTime.of(date, time);
+    private final LocalDate deadline_date = date.plusDays(10);
     private int index;
 
     public Deal() {
@@ -103,13 +109,16 @@ public class Deal {
     }
 
     public void bill() {
-        System.out.println("==========Чек продажи==========");
+        System.out.println("=====================ЧЕК ПРОДАЖИ=====================\n");
+        System.out.println("Время покупки: " + buyTime + "\nDeadline: " + deadline_date
+                + "\n-----------------------------------------------------");
         for (Product n: products) {
             if (n != null){
-                System.out.println(n.productName + " *  " + n.bagQuantity + " = " + n.calcPrice() + " скидка - " + n.discount());
+                System.out.println(n.productName + " * " + n.bagQuantity + " = " + n.calcPrice() + " скидка - " + n.discount());
             }
         }
-        System.out.println("Итого к оплате " + endPrice);
+        System.out.println("Итого к оплате " + endPrice +
+                "\n-----------------------------------------------------");
         System.out.println("Продавец - " + seller.getName());
         System.out.println("Покупатель - " + buyer.getName());
     }

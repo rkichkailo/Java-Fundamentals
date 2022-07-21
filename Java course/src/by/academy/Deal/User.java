@@ -1,5 +1,6 @@
 package by.academy.Deal;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class User {
@@ -7,6 +8,7 @@ public class User {
     protected double money;
     private String phone;
     private String email;
+    private LocalDate dateOfBirth;
 
     public User(){
         super();
@@ -48,6 +50,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     @Override
