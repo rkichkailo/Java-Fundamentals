@@ -54,8 +54,7 @@ public class Deal {
                     }
                 }
                 index++;
-                System.out.println("Продукт добавлен в корзину " +
-                        "\n------------------------------------------------------");
+                System.out.println("Продукт добавлен в корзину " + "\n------------------------------------------------------");
             }
         } else {
             System.out.println("неверное количество");
@@ -114,13 +113,18 @@ public class Deal {
                 + "\n-----------------------------------------------------");
         for (Product n: products) {
             if (n != null){
-                System.out.println(n.productName + " * " + n.bagQuantity + " = " + n.calcPrice() + " скидка - " + n.discount());
+                System.out.print(n.productName + " * " + n.bagQuantity + " = ");
+                System.out.printf("%.2f",  n.calcPrice());
+                System.out.println(" скидка = " + n.discount());
             }
         }
-        System.out.println("Итого к оплате " + endPrice +
-                "\n-----------------------------------------------------");
+        System.out.print("Итого к оплате " );
+        System.out.printf("%.2f", endPrice);
+        System.out.println("\n-----------------------------------------------------");
         System.out.println("Продавец - " + seller.getName());
         System.out.println("Покупатель - " + buyer.getName());
+        System.out.println("Ваш бюджет: ");
+        System.out.printf("%.2f", buyer.getMoney());
     }
 
     public User getSeller() {

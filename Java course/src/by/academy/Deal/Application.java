@@ -1,48 +1,36 @@
 package by.academy.Deal;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Application {
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+
         User buyer = new User();
         User seller = new User("Ruslana", 100);
 
-        int attempts = 3;
+        BirthDate dateBirth = new BirthDate();
+        BelarusPhoneValidator phoneBelarus = new BelarusPhoneValidator();
+        AmericanPhoneValidator phoneAmerica = new AmericanPhoneValidator();
+        EmailValidator userEmail = new EmailValidator();
+        Deal deal = new Deal(buyer, seller);
+
+        String dateOfBirth, phone, email;
+        int attempts, userAction, productID, productQuantity;
+        boolean menuAction;
+
+        attempts = 3;
         while (attempts > 0){
             System.out.println("Введите вашу дату рождения в формате DD/MM/YYYY или DD-MM-YYYY" +
                                 "\n(осталось попыток = " + attempts + ")");
-            String dateOfBirth = scanner.nextLine();
+            dateOfBirth = scanner.nextLine();
 
-            BirthDate dateBirth = new BirthDate();
-            DateTimeFormatter formatter;
-            LocalDate date;
-
-            if (dateBirth.dateValid(dateOfBirth, 1)){
-                formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.UK);
-                date = LocalDate.parse(dateOfBirth, formatter);
-                buyer.setDateOfBirth(date);
-                System.out.println( "Day: " + date.getDayOfMonth() +
-                        "\nMonth: " + date.getMonth() +
-                        "\nYear: " + date.getYear() +
-                        "\n------------------------------------------------------");
-                break;
-            } else if (dateBirth.dateValid(dateOfBirth, 2)){
-                formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.UK);
-                date = LocalDate.parse(dateOfBirth, formatter);
-                buyer.setDateOfBirth(date);
-                System.out.println( "Day: " + date.getDayOfMonth() +
-                        "\nMonth: " + date.getMonth() +
-                        "\nYear: " + date.getYear() +
-                        "\n------------------------------------------------------");
+            if (dateBirth.dateCheck(dateOfBirth)){
+                buyer.setDateOfBirth(dateBirth.getDateBirth());
                 break;
             } else {
-                System.out.println("Неправильный формат даты"
-                        + "\n------------------------------------------------------");
                 attempts--;
             }
         }
@@ -51,10 +39,7 @@ public class Application {
 
         while (attempts > 0){
             System.out.println("Введите номер вашего телефона:" + "\n(осталось попыток = " + attempts + ")");
-            String phone = scanner.nextLine();
-
-            BelarusPhoneValidator phoneBelarus = new BelarusPhoneValidator();
-            AmericanPhoneValidator phoneAmerica = new AmericanPhoneValidator();
+            phone = scanner.nextLine();
 
             if (phoneBelarus.validate(phone)){
                 buyer.setPhone(phone);
@@ -70,9 +55,7 @@ public class Application {
 
         while (attempts > 0){
             System.out.println("Введите адрес вашей электонной почты:" + "\n(осталось попыток = " + attempts + ")");
-            String email = scanner.nextLine();
-
-            EmailValidator userEmail = new EmailValidator();
+            email = scanner.nextLine();
 
             if (userEmail.validate(email)){
                 buyer.setEmail(email);
@@ -92,12 +75,10 @@ public class Application {
 
         Shop.getMenu(0);
 
-        int userAction = scanner.nextInt();
-
-        Deal deal = new Deal(buyer, seller);
+        userAction = scanner.nextInt();
 
         if (userAction != 2) {
-            boolean menuAction = true;
+            menuAction = true;
 
             while (menuAction) {
                 Shop.getMenu(1);
@@ -110,10 +91,10 @@ public class Application {
                         break;
                     case 1:
                         System.out.println("Выберите номер продукта");
-                        int productID = scanner.nextInt();
+                        productID = scanner.nextInt();
 
                         System.out.println("Выберите количество");
-                        int productQuantity = scanner.nextInt();
+                        productQuantity = scanner.nextInt();
 
                         if (productQuantity <= deal.getProducts().length) {
 
@@ -157,8 +138,9 @@ public class Application {
                             System.out.println("Корзина пустая. Пожалуйста добавьте продукт"
                                     + "------------------------------------------------------");
                         } else {
-                            System.out.println("Итоговая сумма: \n" + deal.fullPrice());
-                            System.out.println("------------------------------------------------------");
+                            System.out.println("Итоговая сумма: ");
+                            System.out.printf("%.2f", deal.fullPrice());
+                            System.out.println("\n------------------------------------------------------");
                             System.out.println("Желаете оформить покупку? \n0 - Да, 1 - Нет");
                             userAction = scanner.nextInt();
 

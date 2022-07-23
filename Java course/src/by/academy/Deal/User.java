@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class User {
     private String name;
-    protected double money;
+    private double money;
     private String phone;
     private String email;
     private LocalDate dateOfBirth;

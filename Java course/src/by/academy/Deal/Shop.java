@@ -4,7 +4,7 @@ public class Shop {
 
     private static int count = 15;
     private final static Product[] products = new Product[15];
-    public final static String [] menu = new String[3];
+    private final static String [] menu = new String[3];
 
     static {
         products[0] = new Bread(7, "BaguetteBread", "white", "Baguette", false, 5, 0);

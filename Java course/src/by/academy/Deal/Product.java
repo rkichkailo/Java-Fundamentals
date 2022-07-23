@@ -1,5 +1,7 @@
 package by.academy.Deal;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 public abstract class Product {
