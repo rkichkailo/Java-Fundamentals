@@ -123,7 +123,7 @@ public class Deal {
         System.out.println("\n-----------------------------------------------------");
         System.out.println("Продавец - " + seller.getName());
         System.out.println("Покупатель - " + buyer.getName());
-        System.out.println("Ваш бюджет: ");
+        System.out.print("Ваш бюджет: ");
         System.out.printf("%.2f", buyer.getMoney());
     }
 

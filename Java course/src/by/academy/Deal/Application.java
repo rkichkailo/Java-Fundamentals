@@ -147,12 +147,13 @@ public class Application {
                             if (userAction == 0){
                                 if (deal.deal()){
                                     deal.bill();
-                                    System.out.println("------------------------------------------------------");
+                                    System.out.println("\n------------------------------------------------------");
                                     Shop.getMenu(2);
                                     menuAction = false;
                                     break;
                                     } else {
-                                        System.out.println("У вас недостаточно средств");
+                                        System.out.println("У вас недостаточно средств" +
+                                                "\n-----------------------------------------------------");
                                     }
                                 }
                             }
