@@ -1,11 +1,12 @@
 package by.academy.Deal;
 
 import java.util.Objects;
+@Producer(startYear = 1900,country = "usa", founderFullName = "io")
 
 public class Bread extends Product{
     private String color;
     private String sort;
-    boolean glutenFree;
+    private boolean glutenFree;
 
     public Bread(double price, String productName, String color, String sort, boolean glutenFree, int shopQuantity, int bagQuantity) {
         super(price, productName, shopQuantity, bagQuantity);
