@@ -53,10 +53,11 @@ public class CustomDate {
         return year.isLeapYear;
     }
     public long getDaysBetween(){
-        if(currentDay.getYear() > year.year && currentDay.getMonth().getValue() > month.month && currentDay.getDayOfMonth() > day.day){
-            return ChronoUnit.DAYS.between(date, currentDay);
+        long result = ChronoUnit.DAYS.between(currentDay, date);
+        if(result < 0){
+            return result * -1;
         } else {
-            return ChronoUnit.DAYS.between(currentDay, date);
+            return result;
         }
     }
 

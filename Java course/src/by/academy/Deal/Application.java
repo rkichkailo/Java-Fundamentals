@@ -1,10 +1,11 @@
 package by.academy.Deal;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -145,9 +146,8 @@ public class Application {
                             userAction = scanner.nextInt();
 
                             if (userAction == 0){
-                                if (deal.deal()){
-                                    deal.bill();
-                                    System.out.println("\n------------------------------------------------------");
+                                if (deal.checkMoney()){
+                                    deal.deal();
                                     Shop.getMenu(2);
                                     menuAction = false;
                                     break;

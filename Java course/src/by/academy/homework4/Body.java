@@ -1,7 +1,6 @@
 package by.academy.homework4;
 
 public class Body {
-
     private final Heart heart;
     private final Lungs lungs;
 

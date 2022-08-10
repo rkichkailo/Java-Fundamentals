@@ -1,5 +1,9 @@
 package by.academy.Deal;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -95,36 +99,43 @@ public class Deal {
         return result;
     }
 
-    public boolean deal() {
-
-        if (buyer.getMoney() >= fullPrice()) {
-            this.endPrice = fullPrice();
-            seller.setMoney(seller.getMoney() + endPrice);
-            buyer.setMoney(buyer.getMoney() - endPrice);
-            return true;
-        } else {
-            return false;
-        }
+    public boolean checkMoney(){
+        return buyer.getMoney() >= fullPrice();
     }
 
-    public void bill() {
-        System.out.println("=====================ЧЕК ПРОДАЖИ=====================\n");
-        System.out.println("Время покупки: " + buyTime + "\nDeadline: " + deadline_date
-                + "\n-----------------------------------------------------");
+    public void deal() throws IOException {
+        this.endPrice = fullPrice();
+        seller.setMoney(seller.getMoney() + endPrice);
+        buyer.setMoney(buyer.getMoney() - endPrice);
+        printBill();
+        saveBill();
+    }
+    public String getBillInfo(){
+        StringBuilder bill = new StringBuilder();
+        bill.append("=====================ЧЕК ПРОДАЖИ=====================");
+        bill.append("\nВремя покупки: " + buyTime + "\nDeadline: " + deadline_date + "\n-----------------------------------------------------");
         for (Product n: products) {
             if (n != null){
-                System.out.print(n.productName + " * " + n.bagQuantity + " = ");
-                System.out.printf("%.2f",  n.calcPrice());
-                System.out.println(" скидка = " + n.discount());
+                bill.append("\n" + n.productName + " * " + n.bagQuantity + " = " + n.calcPrice() + "\n скидка = " + n.discount());//System.out.printf("%.2f",  n.calcPrice());
             }
         }
-        System.out.print("Итого к оплате " );
-        System.out.printf("%.2f", endPrice);
-        System.out.println("\n-----------------------------------------------------");
-        System.out.println("Продавец - " + seller.getName());
-        System.out.println("Покупатель - " + buyer.getName());
-        System.out.print("Ваш бюджет: ");
-        System.out.printf("%.2f", buyer.getMoney());
+        bill.append("\nИтого к оплате " + endPrice + "\n-----------------------------------------------------");//System.out.printf("%.2f", endPrice);
+        bill.append("\nПродавец - " + seller.getName() + "\nПокупатель - " + buyer.getName());
+        bill.append("\nВаш бюджет: " + buyer.getMoney() + "\n------------------------------------------------------\n");//System.out.printf("%.2f", buyer.getMoney());
+        return bill.toString();
+    }
+
+    private void printBill() {
+        System.out.println(getBillInfo());
+    }
+    private void saveBill() throws IOException {
+        File file = new File("src/by/academy/Deal","Bill.txt");
+        if (!file.exists()){
+           file.createNewFile();
+        }
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))){
+            bufferedWriter.write(getBillInfo());
+        }
     }
 
     public User getSeller() {
