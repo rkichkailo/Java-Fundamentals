@@ -42,7 +42,7 @@ public class Solution {
 
     public static void printDoublyLinkedList(DoublyLinkedListNode node, String sep) throws IOException {
         while (node != null) {
-            System.out.print(String.valueOf(node.data));
+            System.out.print(node.data);
 
             node = node.next;
 
@@ -52,37 +52,21 @@ public class Solution {
         }
     }
 
-    // Complete the reverse function below.
+    public static DoublyLinkedListNode reverse(DoublyLinkedList list) {
 
-    /*
-     * For your reference:
-     *
-     * DoublyLinkedList { int data; DoublyLinkedListNode next;
-     * DoublyLinkedListNode prev; }
-     *
-     */
-    public static DoublyLinkedListNode reverse(DoublyLinkedList list, int listCount) {
+        DoublyLinkedListNode next;
+        DoublyLinkedListNode prev = null;
+        DoublyLinkedListNode current = list.head;
 
-//        int i = 0;
-//        while (i < listCount){
-//
-//            DoublyLinkedListNode current = list.tail;
-//            DoublyLinkedListNode prev = null;
-//            DoublyLinkedListNode next = null;
-//
-//            while (current != null) {
-//                next = current.next;
-//                current.next = prev;
-//                prev = current;
-//                current = next;
-//            }
-//            list.tail = prev;
-//            return ;
-//        }
-
-        return null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        list.head = prev;
+        return list.head;
     }
-
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
@@ -98,9 +82,9 @@ public class Solution {
 
             llist.insertNode(llistItem);
         }
-//        DoublyLinkedListNode llist1 = reverse(llist);
+        DoublyLinkedListNode llist1 = reverse(llist);
 
-//        printDoublyLinkedList(llist1, " ");
+        printDoublyLinkedList(llist1, " ");
         scanner.close();
     }
 }
